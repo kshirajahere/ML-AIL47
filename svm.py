@@ -1,0 +1,40 @@
+from sklearn import datasets
+from sklearn.model_selection import train_test_split
+from sklearn.svm import SVC
+from sklearn.metrics import accuracy_score
+import numpy as np
+
+
+iris = datasets.load_iris()
+
+X = iris.data[iris.target != 0]
+y = iris.target[iris.target != 0]
+
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=0.2, random_state=42
+)
+
+
+model = SVC(kernel='linear', C=0.01)
+model.fit(X_train, y_train)
+
+
+y_pred = model.predict(X_test)
+
+
+
+print(f"Accuracy: {accuracy_score(y_test, y_pred) * 100:.2f}%")
+
+
+print("Weights:")
+print(model.coef_)
+
+
+/*OUTPUT
+Accuracy: 85.00%
+Weights:
+[[0.16897749 0.03828089 0.41997749 0.25227526]]
+Bias:
+[-3.558065]*/
+print("Bias:")
+print(model.intercept_)*/
